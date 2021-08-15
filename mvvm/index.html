@@ -13,6 +13,11 @@
     >
     <div>{{school.name}}</div>
     <div>{{school.name}}啊哈哈{{school.age}}</div>
+    <!-- 如果数据不变化 视图就不会更新 -->
+    {{getNewName}}
+
+    <div @click="changeName">我要改变name</div>
+    <!-- 我们再内部会匹配{{}} -->
     <ul>
       <li>
         1
@@ -32,10 +37,14 @@
         }
       },
       methods: {
-        
+        changeName(){
+          this.school.name='姜文'
+        }
       },
       computed:{
-
+        getNewName(){
+          return this.school.name+'架构'
+        }
       }
     })
   </script>
