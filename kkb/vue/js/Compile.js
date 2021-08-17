@@ -59,27 +59,37 @@ class Compiler {
 
   // 文本指令
   text(node, exp) {
-   
-    node.textContent = this.getVal(exp)
+    this.update(node, exp, 'text')
+
   }
-  html(node,exp){
-    node.innerHTML = this.getVal(exp)
+  html(node, exp) {
+
+    this.update(node, exp, 'html')
+  }
+  htmlUpdater(node, value) {
+    node.innerHTML = value
+  }
+  textUpdater(node, value) {
+    node.textContent = value
   }
   // 所有动态绑定都需要创建更新函数以及对应的watcher实例
-  update(node,exp,dir){
+  update(node, exp, dir) {
     // textUpdater
     // 初始化
-    const fn=this[dir+'Updater']
-    fn&&fn(node,this.$vm[exp])
+    const fn = this[dir + 'Updater']
+    fn && fn(node, this.$vm[exp])
 
     //更新
+    new Watcher(this.$vm, exp, function (val) {
+      fn && fn(node, val)
+    })
   }
   // 获取值
   getVal(expr) {
     return expr.split('.').reduce((data, cur) => {
 
       return data[cur]
-    }, this.$vm)
+    }, this.$vm.$data)
   }
   // 插值文本编译
   compileText(node) {

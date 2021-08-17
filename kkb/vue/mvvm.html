@@ -17,11 +17,11 @@
     <p k-text="school.name"></p>
     <p k-html="desc"></p>
   </div>
-
-
+  <script src="./js/Observer.js"></script>
+  <script src="./js/Dep.js"></script>
   <script src="./js/Watcher.js"></script>
   <script src="./js/Compile.js"></script>
-  <script src="./js/Observer.js"></script>
+  
  
   <script src="./js/kvue.js"></script>
   <script>
@@ -37,6 +37,10 @@
 
       }
     })
+    setTimeout(()=>{
+   
+      app.$data.counter=2
+    },2000)
   </script>
   
 </body>

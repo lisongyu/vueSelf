@@ -3,30 +3,23 @@ class KVue {
     this.$data = options.data;
     this.$el = options.el
     this.$options = options;
-    // 代理
-    proxy(this)
     new Observer(this.$data)
+    // 代理
+    this.proxyVm(this.$data)
     new Compiler(this.$el, this)
+  }
 
-
-
-
-
+  proxyVm(data) {
+    for (let key in data) {
+      Object.defineProperty(this, key, { // 实现可以通过vm取到对应的内容
+        get() {
+          return data[key] // 进行了转化操作
+        }
+      })
+    }
   }
 }
-// 将¥data中的key代理到实例上
-function proxy(vm) {
-  Object.keys(vm.$data).forEach(key => {
-    Object.defineProperty(vm, key, {
-      get() {
-        return vm.$data[key]
-      },
-      set(v) {
-        vm.$data[key] = v
-      }
-    })
-  })
-}
+
 
 
 
