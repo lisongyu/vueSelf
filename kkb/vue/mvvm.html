@@ -9,17 +9,32 @@
 <body>
   <div id="app">
     <p>{{counter}}</p>
+    <p>{{school.name}}</p>
+    <p>{{counter}}{{school.name}}</p>
+    <div>我下面是内容</div>
     <p k-text="counter"></p>
+    <div>我是多个属性</div>
+    <p k-text="school.name"></p>
+    <p k-html="desc"></p>
   </div>
 
+
+  <script src="./js/Watcher.js"></script>
   <script src="./js/Compile.js"></script>
   <script src="./js/Observer.js"></script>
+ 
   <script src="./js/kvue.js"></script>
   <script>
     const app =new KVue({
       el:'#app',
       data:{
-        counter:1
+        counter:1,
+        school:{
+          name:'开学了'
+        },
+        desc:'<h1>爱上你是最好的</h1>'
+
+
       }
     })
   </script>
